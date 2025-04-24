@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Plan Scheduler</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1><i class="fas fa-book-open"></i> Study Plan Generator</h1>
+      <p class="subtitle">Create your personalized weekly study schedule</p>
+    </header>
+
+    <form id="studyForm">
+      <div class="form-group">
+        <label for="subjects">
+          <i class="fas fa-book"></i> Subjects (comma-separated):
+        </label>
+        <input type="text" id="subjects" placeholder="e.g., Math, English, Biology" required />
+      </div>
+
+      <div class="form-group">
+        <label><i class="fas fa-calendar-days"></i> Study Days:</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="day" value="Monday"> Mon</label>
+          <label><input type="checkbox" name="day" value="Tuesday"> Tue</label>
+          <label><input type="checkbox" name="day" value="Wednesday"> Wed</label>
+          <label><input type="checkbox" name="day" value="Thursday"> Thu</label>
+          <label><input type="checkbox" name="day" value="Friday"> Fri</label>
+          <label><input type="checkbox" name="day" value="Saturday"> Sat</label>
+          <label><input type="checkbox" name="day" value="Sunday"> Sun</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="hours"><i class="fas fa-clock"></i> Hours per Day:</label>
+        <input type="number" id="hours" min="1" max="12" value="2" required />
+      </div>
+      <div class="form-group">
+  <button type="button" id="togglePreferredHours" class="toggle-btn">
+    <i class="fas fa-clock"></i> Set Preferred Hours
+  </button>
+  <div id="preferredHours" class="hidden">
+    <label><i class="fas fa-clock"></i> Preferred Start Time:</label>
+    <div class="time-group">
+      <label for="startTimeMonday">Monday:</label>
+      <input type="time" id="startTimeMonday" name="startTimeMonday" value="09:00">
+      <label for="startTimeTuesday">Tuesday:</label>
+      <input type="time" id="startTimeTuesday" name="startTimeTuesday" value="09:00">
+      <label for="startTimeWednesday">Wednesday:</label>
+      <input type="time" id="startTimeWednesday" name="startTimeWednesday" value="09:00">
+      <label for="startTimeThursday">Thursday:</label>
+      <input type="time" id="startTimeThursday" name="startTimeThursday" value="09:00">
+      <label for="startTimeFriday">Friday:</label>
+      <input type="time" id="startTimeFriday" name="startTimeFriday" value="09:00">
+      <label for="startTimeSaturday">Saturday:</label>
+      <input type="time" id="startTimeSaturday" name="startTimeSaturday" value="09:00">
+      <label for="startTimeSunday">Sunday:</label>
+      <input type="time" id="startTimeSunday" name="startTimeSunday" value="09:00">
+    </div>
+  </div>
+</div>
+
+      <button type="submit" class="generate-btn">
+        <i class="fas fa-magic"></i> Generate Plan
+      </button>
+    </form>
+
+    <div id="schedule" class="schedule-container"></div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Study Plan Scheduler. All rights reserved.</p>
+    <p>Created by Daniel Chege</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
