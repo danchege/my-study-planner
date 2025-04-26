@@ -6,76 +6,108 @@
   <title>Study Plan Scheduler</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
   <div class="container">
     <header>
-      <h1><i class="fas fa-book-open"></i> Study Plan Generator</h1>
+      <h1><i class="fas fa-book-open" aria-hidden="true"></i> Study Plan Generator</h1>
       <p class="subtitle">Create your personalized weekly study schedule</p>
     </header>
 
     <form id="studyForm">
       <div class="form-group">
         <label for="subjects">
-          <i class="fas fa-book"></i> Subjects (comma-separated):
+          <i class="fas fa-book" aria-hidden="true"></i> Subjects (comma-separated):
         </label>
-        <input type="text" id="subjects" placeholder="e.g., Math, English, Biology" required />
+        <input 
+          type="text" 
+          id="subjects" 
+          placeholder="e.g., Math, English, Biology" 
+          required 
+          aria-describedby="subjectsHelp"
+        />
+        <small id="subjectsHelp" class="help-text">Enter your subjects separated by commas</small>
       </div>
 
       <div class="form-group">
-        <label><i class="fas fa-calendar-days"></i> Study Days:</label>
-        <div class="checkbox-group">
-          <label><input type="checkbox" name="day" value="Monday"> Mon</label>
-          <label><input type="checkbox" name="day" value="Tuesday"> Tue</label>
-          <label><input type="checkbox" name="day" value="Wednesday"> Wed</label>
-          <label><input type="checkbox" name="day" value="Thursday"> Thu</label>
-          <label><input type="checkbox" name="day" value="Friday"> Fri</label>
-          <label><input type="checkbox" name="day" value="Saturday"> Sat</label>
-          <label><input type="checkbox" name="day" value="Sunday"> Sun</label>
+        <label><i class="fas fa-calendar-days" aria-hidden="true"></i> Study Days:</label>
+        <div class="checkbox-group" role="group" aria-label="Select study days">
+          <label><input type="checkbox" name="day" value="Monday" aria-label="Monday"> Mon</label>
+          <label><input type="checkbox" name="day" value="Tuesday" aria-label="Tuesday"> Tue</label>
+          <label><input type="checkbox" name="day" value="Wednesday" aria-label="Wednesday"> Wed</label>
+          <label><input type="checkbox" name="day" value="Thursday" aria-label="Thursday"> Thu</label>
+          <label><input type="checkbox" name="day" value="Friday" aria-label="Friday"> Fri</label>
+          <label><input type="checkbox" name="day" value="Saturday" aria-label="Saturday"> Sat</label>
+          <label><input type="checkbox" name="day" value="Sunday" aria-label="Sunday"> Sun</label>
         </div>
       </div>
 
       <div class="form-group">
-        <label for="hours"><i class="fas fa-clock"></i> Hours per Day:</label>
-        <input type="number" id="hours" min="1" max="12" value="2" required />
+        <label for="hours"><i class="fas fa-clock" aria-hidden="true"></i> Hours per Day:</label>
+        <input type="number" id="hours" min="1" max="12" value="2" required aria-label="Hours per day" />
       </div>
-      <div class="form-group">
-  <button type="button" id="togglePreferredHours" class="toggle-btn">
-    <i class="fas fa-clock"></i> Set Preferred Hours
-  </button>
-  <div id="preferredHours" class="hidden">
-    <label><i class="fas fa-clock"></i> Preferred Start Time:</label>
-    <div class="time-group">
-      <label for="startTimeMonday">Monday:</label>
-      <input type="time" id="startTimeMonday" name="startTimeMonday" value="09:00">
-      <label for="startTimeTuesday">Tuesday:</label>
-      <input type="time" id="startTimeTuesday" name="startTimeTuesday" value="09:00">
-      <label for="startTimeWednesday">Wednesday:</label>
-      <input type="time" id="startTimeWednesday" name="startTimeWednesday" value="09:00">
-      <label for="startTimeThursday">Thursday:</label>
-      <input type="time" id="startTimeThursday" name="startTimeThursday" value="09:00">
-      <label for="startTimeFriday">Friday:</label>
-      <input type="time" id="startTimeFriday" name="startTimeFriday" value="09:00">
-      <label for="startTimeSaturday">Saturday:</label>
-      <input type="time" id="startTimeSaturday" name="startTimeSaturday" value="09:00">
-      <label for="startTimeSunday">Sunday:</label>
-      <input type="time" id="startTimeSunday" name="startTimeSunday" value="09:00">
-    </div>
-  </div>
-</div>
 
-      <button type="submit" class="generate-btn">
-        <i class="fas fa-magic"></i> Generate Plan
-      </button>
+      <div class="form-group">
+        <label for="breakDuration"><i class="fas fa-coffee" aria-hidden="true"></i> Break Duration (minutes):</label>
+        <input type="number" id="breakDuration" min="5" max="30" value="15" required aria-label="Break duration in minutes" />
+      </div>
+
+      <div class="form-group">
+        <button type="button" id="togglePreferredHours" class="toggle-btn" aria-expanded="false">
+          <i class="fas fa-clock" aria-hidden="true"></i> Set Preferred Hours
+        </button>
+        <div id="preferredHours" class="hidden">
+          <label><i class="fas fa-clock" aria-hidden="true"></i> Preferred Start Time:</label>
+          <div class="time-group">
+            <label for="startTimeMonday">Monday:</label>
+            <input type="time" id="startTimeMonday" name="startTimeMonday" value="09:00">
+            <label for="startTimeTuesday">Tuesday:</label>
+            <input type="time" id="startTimeTuesday" name="startTimeTuesday" value="09:00">
+            <label for="startTimeWednesday">Wednesday:</label>
+            <input type="time" id="startTimeWednesday" name="startTimeWednesday" value="09:00">
+            <label for="startTimeThursday">Thursday:</label>
+            <input type="time" id="startTimeThursday" name="startTimeThursday" value="09:00">
+            <label for="startTimeFriday">Friday:</label>
+            <input type="time" id="startTimeFriday" name="startTimeFriday" value="09:00">
+            <label for="startTimeSaturday">Saturday:</label>
+            <input type="time" id="startTimeSaturday" name="startTimeSaturday" value="09:00">
+            <label for="startTimeSunday">Sunday:</label>
+            <input type="time" id="startTimeSunday" name="startTimeSunday" value="09:00">
+          </div>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="generate-btn">
+          <i class="fas fa-magic" aria-hidden="true"></i> Generate Plan
+        </button>
+        <button type="button" class="clear-btn" id="clearForm">
+          <i class="fas fa-trash" aria-hidden="true"></i> Clear Form
+        </button>
+      </div>
     </form>
 
-    <div id="schedule" class="schedule-container"></div>
+    <div id="schedule" class="schedule-container" role="region" aria-live="polite"></div>
+
+    <div class="actions-container hidden" id="scheduleActions">
+      <button id="printSchedule" class="action-btn">
+        <i class="fas fa-print" aria-hidden="true"></i> Print Schedule
+      </button>
+      <button id="downloadPdf" class="action-btn pdf-btn">
+        <i class="fas fa-file-pdf" aria-hidden="true"></i> Download PDF
+      </button>
+      <button id="saveSchedule" class="action-btn">
+        <i class="fas fa-save" aria-hidden="true"></i> Save HTML
+      </button>
+    </div>
   </div>
 
   <footer>
     <p>&copy; 2025 Created by Daniel Chege. All rights reserved.</p>
   </footer>
 
+  <div id="toast" class="toast" role="alert" aria-live="polite"></div>
   <script src="script.js"></script>
 </body>
 </html>
